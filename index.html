@@ -40,6 +40,112 @@
       plugins: [],
     }
   </script>
+  <style id="photo-caption-styles">
+/* Caption styling. The gallery's existing widths and image proportions stay intact. */
+:root {
+  --caption-ink: #171717;
+  --caption-secondary: #696969;
+}
+.font-signika { font-family: "Signika", sans-serif; }
+.photo-link {
+  position: relative;
+  display: block;
+  isolation: isolate;
+  color: #fff;
+  text-decoration: none;
+}
+.photo-link > img { transition: opacity 300ms ease; }
+.photo-link:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: -3px;
+}
+.photo-caption {
+  position: absolute;
+  z-index: 1;
+  inset: auto 0 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 48px 24px 20px;
+  background: linear-gradient(0deg, rgb(0 0 0 / 72%), rgb(0 0 0 / 25%) 58%, transparent);
+  opacity: 0;
+  transform: translateY(6px);
+  pointer-events: none;
+  transition: opacity 200ms ease, transform 200ms ease;
+}
+.photo-link:hover .photo-caption,
+.photo-link:focus-visible .photo-caption {
+  opacity: 1;
+  transform: translateY(0);
+}
+.photo-caption__copy { min-width: 0; }
+.photo-caption__details {
+  display: block;
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.6;
+  letter-spacing: 0.055em;
+  text-transform: uppercase;
+  opacity: 0.9;
+  overflow-wrap: anywhere;
+}
+.photo-caption__open {
+  display: grid;
+  place-items: center;
+  flex: 0 0 32px;
+  width: 32px;
+  height: 32px;
+  margin-bottom: 2px;
+  border: 1px solid rgb(255 255 255 / 42%);
+  border-radius: 50%;
+}
+.photo-caption__open svg { width: 14px; height: 14px; }
+.fancybox__container {
+  --fancybox-bg: #121212;
+  --fancybox-color: #f6f3ef;
+}
+.fancybox__caption {
+  max-width: min(100%, 960px);
+  padding: 20px 24px 12px;
+  text-align: center;
+}
+.lightbox-caption__details {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  letter-spacing: 0.025em;
+  color: #d4d0ca;
+  overflow-wrap: anywhere;
+}
+@media (prefers-color-scheme: dark) {
+  :root { --caption-ink: #f5f5f5; --caption-secondary: #aaa; }
+}
+@media (max-width: 767px) {
+  .photo-caption { padding: 40px 18px 18px; }
+  .fancybox__caption { padding: 16px 12px 12px; }
+}
+@media (hover: none), (pointer: coarse) {
+  .photo-link { color: var(--caption-ink); }
+  .photo-caption {
+    position: static;
+    padding: 12px 2px 16px;
+    background: none;
+    opacity: 1;
+    transform: none;
+    gap: 12px;
+  }
+  .photo-caption__details { color: var(--caption-secondary); opacity: 1; }
+  .photo-caption__open { border-color: currentColor; opacity: 0.65; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .photo-caption, .photo-link > img { transition: none; transform: none; }
+}
+
+  </style>
 </head>
 
 <body
@@ -64,7 +170,7 @@
             <div class="w-full p-1">
               <div class="overflow-hidden w-full">
                 <a href="https://res.cloudinary.com/dacv415jh/image/upload/v1676153107/Film/m645/2023/Kodakektar100-m645-23012023/R1-09585-0003_yvsaj8.jpg"
-                  data-fancybox="gallery">
+                  data-fancybox="gallery" data-photo-id="R1-09585-0003_yvsaj8">
                   <img
                     class="block h-auto w-full object-cover object-center opacity-0 animate-fade-in transition duration-500 transform scale-100 hover:scale-110"
                     src="https://res.cloudinary.com/dacv415jh/image/upload/q_50/v1676153107/Film/m645/2023/Kodakektar100-m645-23012023/R1-09585-0003_yvsaj8.jpg" />
@@ -76,7 +182,7 @@
             <div class="w-full md:w-1/3 p-1">
               <div class="overflow-hidden w-full">
                 <a href="https://res.cloudinary.com/dacv415jh/image/upload/v1674261904/Film/k1000/2022/Cinestill800t-k1000-05102022/R1-09318-0011_r7lf3u.jpg"
-                  data-fancybox="gallery">
+                  data-fancybox="gallery" data-photo-id="R1-09318-0011_r7lf3u">
                   <img
                     class="block h-auto w-full object-cover object-center opacity-0 animate-fade-in transition duration-500 transform scale-100 hover:scale-110"
                     src="https://res.cloudinary.com/dacv415jh/image/upload/q_50/v1674261904/Film/k1000/2022/Cinestill800t-k1000-05102022/R1-09318-0011_r7lf3u.jpg" />
@@ -86,7 +192,7 @@
             <div class="w-full md:w-1/3 p-1">
               <div class="overflow-hidden w-full">
                 <a href="https://res.cloudinary.com/dacv415jh/image/upload/v1681490799/Film/k1000/2023/Kodakgold200-k1000-23032023/000033040030_baanyb.jpg"
-                  data-fancybox="gallery">
+                  data-fancybox="gallery" data-photo-id="000033040030_baanyb">
                   <img
                     class="block h-auto w-full object-cover object-center opacity-0 animate-fade-in transition duration-500 transform scale-100 hover:scale-110"
                     src="https://res.cloudinary.com/dacv415jh/image/upload/q_50/v1681490799/Film/k1000/2023/Kodakgold200-k1000-23032023/000033040030_baanyb.jpg" />
@@ -96,7 +202,7 @@
             <div class="w-full md:w-1/3 p-1">
               <div class="overflow-hidden w-full">
                 <a href="https://res.cloudinary.com/dacv415jh/image/upload/v1725814703/Film/M6/2024/Kodakektar100-m6-03092024/R1-02767-003A_fxynxv.jpg"
-                  data-fancybox="gallery">
+                  data-fancybox="gallery" data-photo-id="R1-02767-003A_fxynxv">
                   <img
                     class="block h-auto w-full object-cover object-center opacity-0 animate-fade-in transition duration-500 transform scale-100 hover:scale-110"
                     src="https://res.cloudinary.com/dacv415jh/image/upload/q_50/v1725814703/Film/M6/2024/Kodakektar100-m6-03092024/R1-02767-003A_fxynxv.jpg"
@@ -109,7 +215,7 @@
             <div class="w-full p-1">
               <div class="overflow-hidden w-full">
                 <a href="https://res.cloudinary.com/dacv415jh/image/upload/v1674262040/Film/k1000/2022/Kodakultramax400-k1000-23052022/R1-08323-007A_f4tozn.jpg"
-                  data-fancybox="gallery">
+                  data-fancybox="gallery" data-photo-id="R1-08323-007A_f4tozn">
                   <img
                     class="block h-auto w-full object-cover object-center opacity-0 animate-fade-in transition duration-500 transform scale-100 hover:scale-110"
                     src="https://res.cloudinary.com/dacv415jh/image/upload/q_50/v1674262040/Film/k1000/2022/Kodakultramax400-k1000-23052022/R1-08323-007A_f4tozn.jpg" />
@@ -121,7 +227,7 @@
             <div class="w-full p-1">
               <div class="overflow-hidden w-full">
                 <a href="https://res.cloudinary.com/dacv415jh/image/upload/v1764529268/Film/sureshot/2025/Kodakektar100-ss-14042025/000008_aj1udq.jpg"
-                  data-fancybox="gallery">
+                  data-fancybox="gallery" data-photo-id="000008_aj1udq">
                   <img
                     class="block h-auto w-full object-cover object-center opacity-0 animate-fade-in transition duration-500 transform scale-100 hover:scale-110"
                     src="https://res.cloudinary.com/dacv415jh/image/upload/q_50/v1764529268/Film/sureshot/2025/Kodakektar100-ss-14042025/000008_aj1udq.jpg"
@@ -162,8 +268,96 @@
     </div>
   </footer>
   <!-- Script for the LightBox -->
-  <script>
-    Fancybox.bind("[data-fancybox]", {});
+  <script id="photo-caption-data">
+// Camera, film, date, and location. Locations are supplied by the photographer.
+window.HIF_PHOTO_CAPTIONS = {
+  "R1-09585-0003_yvsaj8": {
+    "camera": "Mamiya 645",
+    "film": "Kodak Ektar 100",
+    "date": "January 2023",
+    "alt": "A lake and bridge surrounded by sunlit mountains.",
+    "location": "Kawaguchi, Japan"
+  },
+  "R1-09318-0011_r7lf3u": {
+    "camera": "Pentax K1000",
+    "film": "CineStill 800T",
+    "date": "October 2022",
+    "alt": "A brightly lit entrance to Ginza-itchome station at night.",
+    "location": "Tokyo, Japan"
+  },
+  "000033040030_baanyb": {
+    "camera": "Pentax K1000",
+    "film": "Kodak Gold 200",
+    "date": "March 2023",
+    "alt": "A red roller coaster follows yellow tracks beneath a blue sky.",
+    "location": "LA, USA"
+  },
+  "R1-02767-003A_fxynxv": {
+    "camera": "Leica M6",
+    "film": "Kodak Ektar 100",
+    "date": "September 2024",
+    "alt": "A sculpted station ceiling over a clock and a red-carpeted walkway.",
+    "location": "NYC, USA"
+  },
+  "R1-08323-007A_f4tozn": {
+    "camera": "Pentax K1000",
+    "film": "Kodak Ultramax 400",
+    "date": "May 2022",
+    "alt": "A brick power station and tall chimney against a blue sky.",
+    "location": "London, UK"
+  },
+  "000008_aj1udq": {
+    "camera": "Canon Sure Shot",
+    "film": "Kodak Ektar 100",
+    "date": "April 2025",
+    "alt": "Cherry blossoms and a hillside town overlooking islands and water at sunset.",
+    "location": "Onomichi, Japan"
+  }
+};
+  </script>
+  <script id="photo-caption-behavior">
+/* Camera, film, date, and location are shared by both photo views. */
+(() => {
+  const entries = window.HIF_PHOTO_CAPTIONS || {};
+  const escape = value => {
+    const element = document.createElement("span");
+    element.textContent = String(value || "");
+    return element.innerHTML;
+  };
+  const icon = '<svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 15 15 5M5 5h10v10" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  document.querySelectorAll('[data-fancybox="gallery"]').forEach(link => {
+    const image = link.querySelector("img");
+    const key = link.dataset.photoId || link.href.split("/").pop().replace(/\.[^.]+$/, "");
+    const entry = entries[key];
+    if (!image || !entry) return;
+    const details = [entry.camera, entry.film, entry.date, entry.location].filter(Boolean).join(" · ");
+    if (!details) return;
+
+    link.classList.add("photo-link");
+    link.dataset.type = "image";
+    link.setAttribute("aria-label", "Enlarge photograph: " + details);
+    if (entry.alt) image.alt = entry.alt;
+    image.classList.remove("hover:scale-110");
+
+    const overlay = document.createElement("span");
+    overlay.className = "photo-caption";
+    overlay.setAttribute("aria-hidden", "true");
+    overlay.innerHTML =
+      '<span class="photo-caption__copy">' +
+        '<span class="photo-caption__details">' + escape(details) + '</span>' +
+      '</span><span class="photo-caption__open">' + icon + '</span>';
+    link.append(overlay);
+    link.dataset.caption =
+      '<p class="lightbox-caption__details">' + escape(details) + '</p>';
+  });
+  if (window.Fancybox) {
+    window.Fancybox.bind('[data-fancybox="gallery"]', {
+      compact: false,
+      Thumbs: { autoStart: false }
+    });
+  }
+})();
+
   </script>
   <script src="dist/fade_in.js"></script>
   <script src="dist/menu.js"></script>
